@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    
+    <NavBar />>
     <router-view class="container"/>
 
     <footer class="footer">
@@ -16,20 +16,26 @@
 </template>
 
 <script>
+// @ is an alias to /src
+import NavBar from "@/components/NavBar.vue";
+
 export default {
+  components: {
+    NavBar,
+  },
   data() {
     return {
       lista: true,
     };
   },
   methods: {
-    //listaValutaURL: "https://api.coindesk.com/v1/bpi/supported-currencies.json",
+    // listaValutaURL: "https://api.coindesk.com/v1/bpi/supported-currencies.json",
     // Na adresu za istorijke treba dodati <CODE> a ako treba i ?start=\<VALUE\>&end=\<VALUE\>
-    //istorijskiBPIURL: "https://api.coindesk.com/v1/bpi/historical/close.json?currency=",
+    // istorijskiBPIURL: "https://api.coindesk.com/v1/bpi/historical/close.json?currency=",
 
     showCurrenciesList() {
-      const listaElem = document.querySelector('#nav-lista');
-      listaElem.classList.toggle('is-active');
+      const listaElem = document.querySelector("#nav-lista");
+      listaElem.classList.toggle("is-active");
     },
 
     generateTrenutniURL() {

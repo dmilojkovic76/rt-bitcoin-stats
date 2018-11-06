@@ -37,5 +37,17 @@
         </div>
 
       </div>
-    </nav>  
+    </nav>
 </template>
+
+<script>
+export default {
+  name: "NavBar",
+  props: {
+    text: String,
+  },
+};
+</script>
+
+<style scoped>
+</style>
