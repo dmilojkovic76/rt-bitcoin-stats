@@ -15,29 +15,28 @@
         </a>
       </div>
 
-      <div id="navbarMenu" class="navbar-menu">
+      <div id="navbarMenu" :class="{ 'is-active': brgrMnuOpn }" class="navbar-menu">
         <div class="navbar-start">
-          <a @click="toggleMenu('navbarMenu')" class="navbar-item">
-            <router-link to="/">Home</router-link>
+          <a @click="toggleMenu('navbarMenuClose')" class="navbar-item" href="/">
+            Home
           </a>
 
-          <a @click="toggleMenu('navbarMenu')" class="navbar-item">
-            <router-link to="/about">About</router-link>
+          <a @click="toggleMenu('navbarMenuClose')" class="navbar-item" href="/">
+            About
           </a>
         </div>
 
         <div class="navbar-end">
-          <div @click="toggleMenu('nav-lista')"
-          class="navbar-item has-dropdown"
+          <div :class="{ 'is-active': currncsMnuOpn }" class="navbar-item has-dropdown"
           id="nav-lista">
-            <a class="navbar-link">
-              {{ codeMsgd }}
+            <a class="navbar-link" @click="toggleMenu('nav-lista')">
+              {{ currency }}
             </a>
             <div class="navbar-dropdown is-right">
-              <a @click="changeCurrency(cur)"
+              <a @click="changeCurrency(cur); toggleMenu('navbarMenuClose'); toggleMenu('nav-listaClose')"
               v-for="cur in currencies"
               :key=cur.id
-              class="navbar-item"><!-- TODO: currencies should be global variable -->
+              class="navbar-item">
                 {{ cur }}
               </a>
             </div>
@@ -49,19 +48,20 @@
 </template>
 
 <script>
+import { mapState, mapActions, mapMutations } from "vuex";
+
+
 export default {
   name: "NavBarComp",
   props: {
     codeMsgd: String,
   },
+  computed: {
+    ...mapState(["brgrMnuOpn", "currncsMnuOpn", "currency", "currencies", "BPI_rate"]),
+  },
   methods: {
-    toggleMenu(id) {
-      const listaElem = document.querySelector(`#${id}`);
-      listaElem.classList.toggle("is-active");
-    },
-    changeCurrency(c) {
-      this.codeMsgd = c;
-    },
+    ...mapActions([]),
+    ...mapMutations(["toggleMenu", "changeCurrency"]),
   },
 };
 </script>
