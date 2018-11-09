@@ -49,3 +49,13 @@ https://api.coindesk.com/v1/bpi/historical/close.json
   + **?currency=\<VALUE\>** The currency to return the data in, specified in ISO 4217 format. Defaults to USD.
   + **?start=\<VALUE\>&end=\<VALUE\>** Allows data to be returned for a specific date range. Must be listed as a pair of start and end parameters, with dates supplied in the YYYY-MM-DD format, e.g. 2013-09-01 for September 1st, 2013.
   + **?for=yesterday** Specifying this will return a single value for the previous day. Overrides the start/end parameter.
+
+## Data Rendering using Charj.js
+
+```
+https://www.chartjs.org/
+```
+
+Primarilly it should be using the ["Time series"](http://www.chartjs.org/samples/latest/scales/time/financial.html) template for plotting the data.
+
+On the [samples](http://www.chartjs.org/samples/latest/) page there are many tooltip, grid and scale options being showcased.
