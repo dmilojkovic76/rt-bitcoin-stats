@@ -6,7 +6,8 @@
         <h1 class="title has-text-centered">
           <StartComp msg="Welcome to Your Vue.js App"/>
         </h1>
-        Current BitCoin value in {{ currency}} is {{ BPI_rate }}.
+        Current BitCoin value in {{ currency}} is {{ BPI_rate }}. <br>
+        Data collected at {{ BPI_time }}.
       </section>
 
     <FooterComp />
@@ -19,7 +20,7 @@ import NavBarComp from "@/components/NavBarComp.vue";
 import StartComp from "@/components/StartComp.vue";
 import FooterComp from "@/components/FooterComp.vue";
 
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "app",
@@ -29,11 +30,14 @@ export default {
     FooterComp,
   },
   computed: {
-    ...mapState(["currency", "currencies", "BPI_rate"]),
+    ...mapState(["currency", "currencies", "BPI_rate", "BPI_time"]),
   },
   methods: {
-    ...mapActions(["getTheData"]),
     ...mapMutations(["changeCurrency"]),
+    ...mapActions(["getCurrentData"]),
+  },
+  created() {
+    this.$store.dispatch("getCurrentData", "currency");
   },
 };
 </script>

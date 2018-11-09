@@ -10,36 +10,31 @@ export default new Vuex.Store({
     currency: "EUR",
     currencies: ["EUR", "USD", "BTC", "CAD", "CHF", "GBP", "HKD", "RSD"],
     BPI_rate: 0,
+    BPI_time: 0,
   },
   mutations: {
-    changeCurrency(state, c) {
-      state.currency = c;
+    changeCurrency(state, currency) {
+      state.currency = currency;
+      // TODO: Here we should do something about the current data being plotted in different currency.
     },
     toggleMenu(state, id) {
-      console.log(state, id);
-      if (id === "navbarMenu") {
-        state.brgrMnuOpn = !state.brgrMnuOpn;
-      }
-      if (id === "navbarMenuClose") {
-        state.brgrMnuOpn = false;
-      }
+      if (id === "navbarMenu") state.brgrMnuOpn = !state.brgrMnuOpn;
+      if (id === "navbarMenuClose") state.brgrMnuOpn = false;
 
-      if (id === "nav-lista") {
-        state.currncsMnuOpn = !state.currncsMnuOpn;
-      }
-      if (id === "nav-listaClose") {
-        state.currncsMnuOpn = false;
-      }
+      if (id === "nav-lista") state.currncsMnuOpn = !state.currncsMnuOpn;
+      if (id === "nav-listaClose") state.currncsMnuOpn = false;
     },
   },
   actions: {
-    getTheData(CODE) {
-      fetch(`https://api.coindesk.com/v1/bpi/currentprice/${CODE}.json`)
-        .then(result => result.json())
+    getCurrentData({ commit }, { currency }) {
+      fetch(`https://api.coindesk.com/v1/bpi/currentprice/${currency}.json`)
+        .then(response => response.json())
         .then((data) => {
-          console.log(data);
-          this.BPI_rate = data.bpi.EUR.rate;
-          console.log(`${data.time.updated}, ${this.CODE}, ${this.BPI_rate}`);
+          commit("BPI_rate", data.bpi.EUR.rate);
+          commit("BPI_time", data.time.updated);
+        })
+        .catch((error) => {
+          console.error(error.statusText);
         });
     },
   },
