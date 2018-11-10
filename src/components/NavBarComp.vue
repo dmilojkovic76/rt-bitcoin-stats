@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
           Real Time Cripto Currency Statistics
@@ -27,20 +27,16 @@
         </div>
 
         <div class="navbar-end">
-          <div :class="{ 'is-active': currncsMnuOpn }" class="navbar-item has-dropdown"
-          id="nav-lista">
-            <a class="navbar-link" @click="toggleMenu('nav-lista')">
-              {{ currency }}
+          <b-dropdown>
+            <a class="navbar-item" slot="trigger">
+                <span>{{ currency }}</span>
+                <b-icon icon="menu-down"></b-icon>
             </a>
-            <div class="navbar-dropdown is-right">
-              <a @click="changeCurrency(cur); toggleMenu('navbarMenuClose'); toggleMenu('nav-listaClose')"
-              v-for="cur in currencies"
-              :key=cur.id
-              class="navbar-item">
-                {{ cur }}
-              </a>
-            </div>
-          </div>
+
+            <b-dropdown-item v-for="cur in currencies" :key=cur.id @click="changeCurrency(cur); toggleMenu('navbarMenuClose')">
+              {{ cur }}
+            </b-dropdown-item>
+          </b-dropdown>
         </div>
 
       </div>
