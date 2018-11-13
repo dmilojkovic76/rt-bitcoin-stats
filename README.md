@@ -59,3 +59,15 @@ https://www.chartjs.org/
 Primarilly it should be using the ["Time series"](http://www.chartjs.org/samples/latest/scales/time/financial.html) template for plotting the data.
 
 On the [samples](http://www.chartjs.org/samples/latest/) page there are many tooltip, grid and scale options being showcased.
+
+
+## Handling Real-Time data
+
+On StackOwerflow there are some answers with mutation subscriptions or watcher when using vue.js and vuex
+```
+https://stackoverflow.com/questions/46040832/how-to-call-a-function-when-store-has-data#46044069
+```
+
+```
+https://stackoverflow.com/questions/45888111/alternative-for-setting-the-srcobject-using-vuejs/45894603#45894603
+```
