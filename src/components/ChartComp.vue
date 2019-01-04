@@ -1,23 +1,69 @@
 <script>
-import { Line, mixins } from "vue-chartjs";
+import { Line } from "vue-chartjs";
 
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 
 export default {
   extends: Line,
-  mixins: [mixins.reactiveData],
-  computed: {
-    ...mapState(["BPI_rate", "BPI_time", "chart_Data", "chart_Labels"]),
+  props: {
+    chartData: {
+      type: Array,
+      default: null,
+      required: true,
+    },
+    chartLabels: {
+      type: Array,
+      default: null,
+      required: true,
+    },
   },
-  mutations: {
+  data() {
+    return {
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+            },
+            gridLines: {
+              display: true,
+            },
+          }],
+          xAxes: [{
+            gridLines: {
+              display: false,
+            },
+          }],
+        },
+        legend: {
+          display: false,
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    };
+  },
+  methods: {
+    // ovako sam prvobitno mislio
+    izrendajChart() {
+      this.renderChart({
+        labels: this.$store.state.chart_Labels,
+        datasets: [{
+          data: this.$store.state.chart_Data,
+        }],
+      });
+    },
   },
   mounted() {
+    // ovako sam prvobitno mislio
+    // this.izrendajChart();
+    // ali sam probao sa chartProps
     this.renderChart({
-      labels: this.$store.state.chart_Labels,
-      datasets: [{
-        data: this.$store.state.chart_Data,
-      }],
-    });
+      labels: this.chartLabels,
+      datasets: [
+        { data: this.chartData },
+      ],
+    }, this.options);
   },
 };
 </script>
